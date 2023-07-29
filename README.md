@@ -22,6 +22,7 @@ He has decided to use following tools:
 * [Cobra](https://github.com/spf13/cobra) : It's an opensource module which provides framework to create CLI's in golang.
 * [Viper](https://github.com/spf13/viper) : It's an opensource module which helps to manage configuration for any go program.
 * [osapi-codegen](https://github.com/deepmap/oapi-codegen) : Helps to create client/server code based on open api specification.
+* [go-pretty]([https://github.com/jedib0t/go-pretty) : helps in outputting text in cli application in go.
 
 ## Steps
 
@@ -35,6 +36,19 @@ cd myapp
 go mod init github.com/ankurnema/cli-demo
 ```
 
+### Step 2: Download dependencies
 
+Lets download go dependencies we will need to create our commands
 
+```go
+go get -u github.com/spf13/cobra@latest
+go get github.com/spf13/viper
+go get github.com/jedib0t/go-pretty/v6
+
+# For generating code using osapi-codegen we need to install this tool
+go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+
+# For using cobra CLI we need to install this tool
+go install github.com/spf13/cobra-cli@latest
+```
 
