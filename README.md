@@ -3,9 +3,9 @@ Project for Demoing CLI Development using golang
 
 ### Use Case
 
-Hi, I am Ram and I am devops professional employed by a pet store which deals with adoption of pets. 
+Hi, I am Ram, and I am devops professional employed by a pet store which deals with adoption of pets. 
 Company has another employee named Shyam who works on store's front desk and deals with adopters. 
-This employee is a volunteer who is not so tech savy and has requested an easy way to deal with day to day activities 
+This employee is a volunteer who is not so tech-savvy and has requested an easy way to deal with day to day activities 
 like getting pets, add new pets and so on and so forth.
 
 Shyam asked Ram if he can give a very easy to use system to interact with backend database which is maintained by
@@ -28,9 +28,9 @@ He has decided to use following tools:
 
 ### Step 1 : Go Module
 
-Lets create go module and start with creating app directory which will host go code and then create module
+Let's create go module and start with creating app directory which will host go code and then create module
 
-```go
+```shell
 mkdir cli-demo
 cd myapp
 go mod init github.com/ankurnema/cli-demo
@@ -38,9 +38,9 @@ go mod init github.com/ankurnema/cli-demo
 
 ### Step 2: Download dependencies
 
-Lets download go dependencies we will need to create our commands
+Let's download go dependencies we will need to create our commands
 
-```go
+```shell
 go get -u github.com/spf13/cobra@latest
 go get github.com/spf13/viper
 go get github.com/jedib0t/go-pretty/v6
@@ -60,27 +60,41 @@ Lets create folder structure for organizing our code.
 cli-demo/           # Root Directory
 ├── cmd/            # Directory which contains all command high level code
 ├── pkg/            # Contain packages which are public in nature
-│   └── petstore/   # Package containing petstore client code and type code
-└── internal/       # dicrectory containing internal code.
+│   └── petstore/   # Package containing Pet Store client code and type code
+└── internal/       # directory containing internal code.
 ```
 
-### Step 4: Petstore Client
+### Step 4: Pet Store Client
 
-Since we want to create a wrapper around petstore using this cli tool, we will need a client for interacting with 
-petstore api's. Lets create our client using oapi-codegen tool. For this to work we need open api specification of
-petstore. We also need to access petstore server.
+Since we want to create a wrapper around pet store using this cli tool, we will need a client for interacting with 
+pet store api's. Let's create our client using oapi-codegen tool. For this to work we need open api specification of
+pet store. We also need to access pet store server.
 
-Petstore Server: https://petstore.swagger.io/
+Pet store Server: https://Pet Store.swagger.io/
 
 API Key: special-key
 
-Petstore open api spec: https://petstore.swagger.io/v2/swagger.json 
+Pet store open api spec: https://Pet Store.swagger.io/v2/swagger.json 
 
 Lets generate client using oapi-codegen
 
 ```shell
-cd pkg/petstore
-oapi-codegen -package petstore --generate types,client petstore.yaml > petstore.gen.go
+cd pkg/Pet Store
+oapi-codegen -package Pet Store --generate types,client Pet Store.yaml > Pet Store.gen.go
 ```
 
-Above command will generate petstore client in petstore package.
+Above command will generate Pet Store client in Pet Store package.
+
+### Step 5: Command initialization
+
+Now lets move on and initialize our root command using cobra and viper framework. We have already downloaded cobra-cli
+lets use same and initialize our root command.
+
+```shell
+cobra-cli init --author "Ankur Nema ankurnema@gmail.com" --license apache --viper
+```
+
+Above command will create main.go under cli-demo directory and root.go under cli-demo/cmd directory. main.go will start
+executing command is our main package. root.go contains rootCmd and its description.
+
+At this point you should be able to execute below command and see long description about command.
