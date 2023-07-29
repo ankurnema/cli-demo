@@ -23,7 +23,17 @@ He has decided to use following tools:
 * [Viper](https://github.com/spf13/viper) : It's an opensource module which helps to manage configuration for any go program.
 * [osapi-codegen](https://github.com/deepmap/oapi-codegen) : Helps to create client/server code based on open api specification.
 
+## Steps
 
+### Step 1 : Go Module
+
+Lets create go module and start with creating app directory which will host go code and then create module
+
+```go
+mkdir cli-demo
+cd myapp
+go mod init github.com/ankurnema/cli-demo
+```
 
 
 
