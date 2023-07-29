@@ -63,3 +63,24 @@ cli-demo/           # Root Directory
 │   └── petstore/   # Package containing petstore client code and type code
 └── internal/       # dicrectory containing internal code.
 ```
+
+### Step 4: Petstore Client
+
+Since we want to create a wrapper around petstore using this cli tool, we will need a client for interacting with 
+petstore api's. Lets create our client using oapi-codegen tool. For this to work we need open api specification of
+petstore. We also need to access petstore server.
+
+Petstore Server: https://petstore.swagger.io/
+
+API Key: special-key
+
+Petstore open api spec: https://petstore.swagger.io/v2/swagger.json 
+
+Lets generate client using oapi-codegen
+
+```shell
+cd pkg/petstore
+oapi-codegen -package petstore --generate types,client petstore.yaml > petstore.gen.go
+```
+
+Above command will generate petstore client in petstore package.
