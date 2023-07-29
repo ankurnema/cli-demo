@@ -52,3 +52,14 @@ go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
 go install github.com/spf13/cobra-cli@latest
 ```
 
+### Step 3: Project Folder Structure
+
+Lets create folder structure for organizing our code.
+
+```text
+cli-demo/           # Root Directory
+├── cmd/            # Directory which contains all command high level code
+├── pkg/            # Contain packages which are public in nature
+│   └── petstore/   # Package containing petstore client code and type code
+└── internal/       # dicrectory containing internal code.
+```
