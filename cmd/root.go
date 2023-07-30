@@ -17,6 +17,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/ankurnema/cli-demo/pkg/petstore"
+	"github.com/deepmap/oapi-codegen/pkg/securityprovider"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -24,6 +26,9 @@ import (
 )
 
 var cfgFile string
+
+// Clinet which will be used by all sub commands for communicating with petstore.
+var petStoreClient petstore.ClientWithResponses
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -82,4 +87,23 @@ func initConfig() {
 			panic(err)
 		}
 	}
+
+	// Lets get token and use it to initialize our client.
+	token := viper.GetString("token")
+
+	// Creating token based security provider.
+	bearerToken, err := securityprovider.NewSecurityProviderBearerToken(token)
+	if err != nil {
+		panic(err)
+	}
+
+	// Creating client which returns response back.
+	client, err := petstore.NewClientWithResponses(
+		"https://petstore.swagger.io/v2/",
+		petstore.WithRequestEditorFn(bearerToken.Intercept),
+	)
+
+	// Since we get pointer reference back, lets get its value for later use.
+	petStoreClient = *client
+
 }

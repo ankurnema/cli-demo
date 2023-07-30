@@ -116,3 +116,11 @@ cobra-cli add user -p 'getCmd'
 
 Above commands have created `get.go`, `pet.go`, `store.go` and `user.go` files under cmd directory.
 
+### Step 7: Pet Command Business Logic
+
+Now lets implement business logic to get pets based on status. User will provide status and will get pets by status.
+
+For these lets add a flag to command first called status and then implement business logic to get details.
+
+Check out commit for changes done.
+
