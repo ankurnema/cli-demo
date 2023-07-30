@@ -98,3 +98,21 @@ Above command will create main.go under cli-demo directory and root.go under cli
 executing command is our main package. root.go contains rootCmd and its description.
 
 At this point you should be able to execute below command and see long description about command.
+
+### Step 6: Get Command
+
+Let's create our first command which will be parent command to get Pets. So we will add get command and pet, store and
+user sub command.
+
+```shell
+# Add Get command
+cobra-cli add get -p 'rootCmd'
+
+# Add sub commands
+cobra-cli add pet -p 'getCmd'
+cobra-cli add store -p 'getCmd'
+cobra-cli add user -p 'getCmd'
+```
+
+Above commands have created `get.go`, `pet.go`, `store.go` and `user.go` files under cmd directory.
+
