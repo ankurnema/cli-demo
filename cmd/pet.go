@@ -4,9 +4,20 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"context"
 	"fmt"
-
+	"github.com/ankurnema/cli-demo/pkg/petstore"
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
+	"strings"
+)
+
+var status string
+
+var (
+	colPetId   = "Pet Id"
+	colPetName = "Pet Name"
+	rowHeader  = table.Row{colPetId, colPetName}
 )
 
 // petCmd represents the pet command
@@ -15,7 +26,32 @@ var petCmd = &cobra.Command{
 	Short: "Get pets based on status or details about a single pet by id.",
 	Long:  `This command helps in getting pets based on`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("pet called")
+		// Business logic
+
+		params := petstore.FindPetsByStatusParams{
+			Status: []petstore.FindPetsByStatusParamsStatus{petstore.FindPetsByStatusParamsStatus(status)},
+		}
+
+		petResponse, err := petStoreClient.FindPetsByStatusWithResponse(context.Background(), &params)
+		if err != nil {
+			panic(err)
+		}
+		pets := *petResponse.JSON200
+
+		// We got pets. Lets iterate over and print value using table
+
+		tw := table.NewWriter()
+		tw.AppendHeader(rowHeader)
+		var rows []table.Row
+		for _, pet := range pets {
+			rows = append(rows, table.Row{*pet.Id, pet.Name})
+		}
+
+		tw.AppendRows(rows)
+		tw.SetIndexColumn(1)
+		tw.SetTitle(strings.ToTitle(status + " Pet Details"))
+
+		fmt.Println(tw.Render())
 	},
 }
 
@@ -30,5 +66,8 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// petCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+	petCmd.Flags().StringVarP(&status, "status", "s", "",
+		"Provide status value. It can be available, pending, sold")
+
 }
